@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,10 +12,14 @@
         android:text="Back"
         android:layout_gravity="right"
         ></Button>
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewpager">
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/litsview">
-
     </ListView>
+    </androidx.viewpager.widget.ViewPager>
 </LinearLayout>
