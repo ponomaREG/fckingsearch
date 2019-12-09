@@ -76,16 +76,18 @@ public class Search_vk extends AppCompatActivity {
         }
         Log.d("ARR_SIZE_SEARCH",String.valueOf(arr_vl.size()));
         AnotherCustomAdapter aca = null;
-        try {
-            aca = new AnotherCustomAdapter(this, arr_vl);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if((arr_vl.size()>0)) {
+            try {
+                aca = new AnotherCustomAdapter(this, arr_vl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Log.d("TAG", "TAG3");
+            lv.setAdapter(aca);
+            Log.d("AGE", String.valueOf(age));
+            Log.d("FIRST_NAME", first_name);
+            Log.d("LAST_NAME", last_name);
         }
-        Log.d("TAG","TAG3");
-        lv.setAdapter(aca);
-        Log.d("AGE",String.valueOf(age));
-        Log.d("FIRST_NAME",first_name);
-        Log.d("LAST_NAME",last_name);
 
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
