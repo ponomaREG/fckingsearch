@@ -152,6 +152,7 @@ public class AnotherCustomAdapter extends BaseAdapter {
         return null;
     }
 
+    //TODO:make good system of query
     private int getIdUser(int i){
         Map map = getMapFromArray(i);
         String id = map.get("id").toString();
