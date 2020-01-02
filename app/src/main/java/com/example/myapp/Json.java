@@ -31,6 +31,7 @@ public class Json {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList jsonify(String first_name, String last_name, int age_from, int age_to,int city) throws IOException, ExecutionException, InterruptedException {
+
         s = String.format(SEARCH_USERS,last_name,first_name,age_from,age_to);
         if(city>0) s += String.format("&city=%s",city);
         SearchInfoInVk search = new SearchInfoInVk();

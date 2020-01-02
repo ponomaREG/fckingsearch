@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -51,6 +52,7 @@ public class Search_vk extends AppCompatActivity {
         birthdate = birthdate.split(" ")[0];
         String[] birth_date = birthdate.split("-");
         year = Integer.parseInt(birth_date[0]);
+        if(year > Calendar.getInstance().get(Calendar.YEAR)) year-=100;
         month = Integer.parseInt(birth_date[1]);
         city = intent.getIntExtra("city",0);
         age_from = intent.getIntExtra("age_from",0);
