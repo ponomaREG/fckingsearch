@@ -78,7 +78,7 @@ public class Searching extends AppCompatActivity implements Result.OnFragmentInt
     }
 
 
-
+//TODO:PHOTO AND CLEANUP
 
 }
  class FragManag extends FragmentPagerAdapter {
