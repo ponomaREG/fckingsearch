@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ import java.util.Arrays;
 public class Searching extends AppCompatActivity implements Result.OnFragmentInteractionListener{
 
 
-    static int COUNT_OF_PAGES = 0;
     ArrayList<SubjectData> arr;
     ArrayList<String[]> arr2;
     ArrayList<SubjectInfo> arr3;
@@ -31,8 +31,7 @@ public class Searching extends AppCompatActivity implements Result.OnFragmentInt
     DBHelper dbhelp;
     SQLiteDatabase db;
     String input;
-    Cursor cursor,cursor2;
-    String[] info;
+    Cursor cursor;
     ThreadDownload thd;
     ViewPager vp;
 
@@ -53,41 +52,14 @@ public class Searching extends AppCompatActivity implements Result.OnFragmentInt
         dbhelp = new DBHelper(getBaseContext());
         db = dbhelp.getReadableDatabase();
         input = getIntent().getStringExtra("fio");
-        cursor = db.rawQuery("select * from cards_students where fio like '%"+input+"%' order by clc_birthdate desc;",null);
+        cursor = db.rawQuery("select count(*) from cards_students where fio like '%"+input+"%';",null);
         cursor.moveToFirst();
-        String url;
-        if (cursor.getCount()>0) {
-            do {
-                cursor2 = db.rawQuery(String.format("select photo from cards_order where person_id=%d;", cursor.getInt(0)), null);
-                cursor2.moveToFirst();
-                if (cursor2.getCount() > 0) {
-                    url = cursor2.getString(0);
-                } else {
-                    url = "null";
-                }
-                String text = cursor.getString(cursor.getColumnIndex("fio")) + " " + cursor.getString(cursor.getColumnIndex("clc_birthdate"));
-                arr.add(new SubjectData(text,null,url,null,null));
-                info = new String[]{
-                        cursor.getString(cursor.getColumnIndex("fio")),
-                        cursor.getString(cursor.getColumnIndex("email")),
-                        cursor.getString(cursor.getColumnIndex("clc_birthdate")),
-                        cursor.getString(cursor.getColumnIndex("doc")),
-                        cursor.getString(cursor.getColumnIndex("dateendallow")),
-                        url
-                };
-                SubjectInfo si = new SubjectInfo(info[0],info[1],info[2],info[3],info[4],info[5]);
-                arr3.add(si);
-                arr2.add(info);
-            } while (cursor.moveToNext());
-        }
-        if (arr.size()<1){
-            //((ViewGroup)listview.getParent()).removeView(listview);
-        }
-        else {
-            FragManag fm = new FragManag(getSupportFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,arr,arr3);
+
+        //((ViewGroup)listview.getParent()).removeView(listview);
+        if(cursor.getInt(0)>0) {
+            FragManag fm = new FragManag(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, input, db,cursor.getInt(0));
             vp.setAdapter(fm);
         }
-
         btn_back = findViewById(R.id.button_back);
         View.OnClickListener ocl = new View.OnClickListener() {
             @Override
@@ -96,62 +68,18 @@ public class Searching extends AppCompatActivity implements Result.OnFragmentInt
             }
         };
         btn_back.setOnClickListener(ocl);
+        cursor.close();
 
     }
-
-
-    static ArrayList<ArrayList<SubjectData>> makeDiff(ArrayList<SubjectData> arr){
-        ArrayList<ArrayList<SubjectData>> arr_x = new ArrayList<ArrayList<SubjectData>>();
-        ArrayList<SubjectData> arr_y = new ArrayList<SubjectData>();
-        for (int i = 0 ;i<arr.size();i++){
-                if (((i % 20) == 0) && (i != 0)) {
-                    Log.d("ARR_x_SIZE123",String.valueOf(arr_x.size()));
-                    arr_x.add((ArrayList<SubjectData>) arr_y.clone());
-                    Log.d("ARR_Y_SIZE",String.valueOf(arr_y.size()));
-
-                    arr_y.clear();
-                    Log.d("ARR_x_SIZE123",String.valueOf(arr_x.size()));
-                }
-            arr_y.add(arr.get(i));
-            Log.d("ARR_Y_SIZE_ITER",String.valueOf(arr_y.size()));
-        }
-        arr_x.add(arr_y);
-        Log.d("ARR_x_SIZE_",String.valueOf(arr_x.size()));
-        for (int i=0;i<arr_x.size();i++){
-            Log.d("_I",String.valueOf(i));
-            Log.d("_A_SIZE",String.valueOf(arr_x.get(i).size()));
-        }
-        return arr_x;
-    }
-
-
-    static ArrayList<ArrayList<SubjectInfo>> makeDiff_2(ArrayList<SubjectInfo> arr){
-        ArrayList<ArrayList<SubjectInfo>> arr_x = new ArrayList<ArrayList<SubjectInfo>>();
-        ArrayList<SubjectInfo> arr_y = new ArrayList<>();
-        for (int i = 0 ;i<arr.size();i++){
-            if (((i % 20) == 0) && (i != 0)) {
-                arr_x.add((ArrayList<SubjectInfo>) arr_y.clone());
-                Log.d("ARR2_Y_SIZE",String.valueOf(arr_y.size()));
-                arr_y.clear();
-            }
-            arr_y.add(arr.get(i));
-            Log.d("ARR2_Y_SIZE_ITER",String.valueOf(arr_y.size()));
-        }
-        arr_x.add(arr_y);
-        Log.d("ARR2_x_SIZE",String.valueOf(arr_x.size()));
-        for (int i=0;i<arr_x.size();i++){
-            Log.d("_I",String.valueOf(i));
-            Log.d("_A_SIZE",String.valueOf(arr_x.get(i).size()));
-        }
-        return arr_x;
-
-    }
-
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
+
+
 }
  class FragManag extends FragmentPagerAdapter {
     private int count_of_pages = 0;
@@ -160,35 +88,100 @@ public class Searching extends AppCompatActivity implements Result.OnFragmentInt
     private ArrayList<ArrayList<SubjectInfo>> arr2_t;
     private ArrayList<ArrayList<SubjectData>> arr_t;
     private Result[] pages_array;
+    private SQLiteDatabase db;
+    private String input;
 
-     public FragManag(@NonNull FragmentManager fm, int behavior,ArrayList<SubjectData> arr,ArrayList<SubjectInfo> arr2) {
+     public FragManag(@NonNull FragmentManager fm, int behavior,String input,SQLiteDatabase db,int total_count) {
          super(fm, behavior);
-         this.arr=arr;
-         this.arr2=arr2;
-         this.count_of_pages = (arr.size()/20)+1;
-         Log.d("COUNT_OF_PAGES",String.valueOf(count_of_pages));
-         this.arr_t = Searching.makeDiff(this.arr);
-         Log.d("ARR_T_SIZE",String.valueOf(arr_t.size()));
-         this.arr2_t = Searching.makeDiff_2(this.arr2);
-         Log.d("ARR2_T_SIZE",String.valueOf(arr2_t.size()));
+//         this.arr=subject.getArr1();
+//         this.arr2=arr2;
+         this.input = input;
+         this.count_of_pages = (total_count/20)+1;
+         Log.d("total count",String.valueOf(total_count));
+         Log.d("total_pages",String.valueOf(count_of_pages));
+         this.db = db;
+//         Log.d("COUNT_OF_PAGES",String.valueOf(count_of_pages));
+//         this.arr_t = Searching.makeDiff(this.arr);
+//         Log.d("ARR_T_SIZE",String.valueOf(arr_t.size()));
+//         this.arr2_t = Searching.makeDiff_2(this.arr2);
+//         Log.d("ARR2_T_SIZE",String.valueOf(arr2_t.size()));
          pages_array = new Result[count_of_pages];
-         for (int i=0;i<count_of_pages;i++){
-             Log.d("ARR_T_SIZE_IN_ITER",String.valueOf(this.arr_t.get(i).size()));
-             Log.d("ARR2_T_SIZE_IN_ITER",String.valueOf(this.arr2_t.get(i).size()));
-             pages_array[i] = new Result().newInstance((arr_t.get(i)), (arr2_t.get(i)),i);
-         }
+//         for (int i=0;i<count_of_pages;i++){
+//             Log.d("ARR_T_SIZE_IN_ITER",String.valueOf(this.arr_t.get(i).size()));
+//             Log.d("ARR2_T_SIZE_IN_ITER",String.valueOf(this.arr2_t.get(i).size()));
+//             pages_array[i] = new Result().newInstance((arr_t.get(i)), (arr2_t.get(i)),i);
+//         }
+
      }
 
      @NonNull
      @Override
      public Fragment getItem(int position) {
-         Log.d("ARR_x_SIZE", Arrays.toString(arr_t.toArray()));
+//         Log.d("ARR_x_SIZE", Arrays.toString(arr_t.toArray()));
+         if(pages_array[position]==null){
+             //pages_array[position]=new Result().newInstance();
+//             Subject subject;
+             Subject sub = getResultFromCurrentPage(position+1,input);
+             pages_array[position] = new Result().newInstance(sub.getArr1(), sub.getArr2(),position);
+         }
          return pages_array[position];
      }
+
+
 
      @Override
      public int getCount() {
          return count_of_pages;
      }
+
+
+
+     private Subject getResultFromCurrentPage(int page,String input){
+         int l_1 ,l_2=20;
+         l_1 = (page-1)*20;
+         String query = "select * from cards_students where fio like '%"+input+"%' order by clc_birthdate desc limit "+l_1+","+l_2+";";
+         String query_2 = "select photo from cards_order where person_id==%d;";
+         Log.d("QUERY",query);
+         Cursor c = db.rawQuery(query,null);
+         Cursor c_2;
+         String url;
+         String info[];
+         ArrayList<SubjectInfo> arr_info = new ArrayList<>();
+         ArrayList<SubjectData> arr_data = new ArrayList<>();
+         c.moveToFirst();
+         do{
+             c_2 = db.rawQuery(String.format(query_2,c.getInt(0)),null);
+             c_2.moveToFirst();
+             if (c_2.getCount() > 0) {
+                 url = c_2.getString(0);
+             } else {
+                 url = "null";
+             }
+             String text = c.getString(c.getColumnIndex("fio")) + " " + c.getString(c.getColumnIndex("clc_birthdate"));
+             arr_data.add(new SubjectData(text,null,url,null,null));
+             info = new String[]{
+                     c.getString(c.getColumnIndex("fio")),
+                     c.getString(c.getColumnIndex("email")),
+                     c.getString(c.getColumnIndex("clc_birthdate")),
+                     c.getString(c.getColumnIndex("doc")),
+                     c.getString(c.getColumnIndex("dateendallow")),
+                     url
+             };;
+             arr_info.add(new SubjectInfo(info[0],info[1],info[2],info[3],info[4],info[5]));
+         }while (c.moveToNext());
+         c.close();
+         return new Subject(arr_data,arr_info);
+     }
+
+    @Deprecated
+     private int getCountOP(String input){
+         String query = "select * from cards_students where fio like '%"+input+"%' order by clc_birthdate desc";
+         Cursor c = db.rawQuery(query,null);
+         c.moveToFirst();
+         int count = c.getInt(0);
+         c.close();
+         return count;
+     }
+
 
  }
