@@ -33,7 +33,6 @@ public class Searching extends AppCompatActivity implements Result.OnFragmentInt
     ListView listview;
     Button btn_back;
     String input;
-    Cursor cursor;
     ThreadDownload thd;
     ViewPager vp;
 
@@ -80,7 +79,6 @@ public class Searching extends AppCompatActivity implements Result.OnFragmentInt
             }
         };
         btn_back.setOnClickListener(ocl);
-        cursor.close();
 
     }
 

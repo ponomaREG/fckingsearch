@@ -107,6 +107,7 @@ public class Json {
     public ArrayList jsonify(String q,int page) throws ExecutionException, InterruptedException {
         SearchInfo searchInfo = new SearchInfo();
         String query = String.format(SEARCH_API,q,page);
+
         query = searchInfo.execute(query).get();
         Gson g = new Gson();
         Map map = g.fromJson(query,Map.class);
@@ -117,10 +118,13 @@ public class Json {
     public int jsonify(String q) throws ExecutionException, InterruptedException {
         SearchInfo searchInfo = new SearchInfo();
         String query = String.format(SEARCH_API_COUNT,q);
+        Log.d("QUERY TOTAL",query);
         query = searchInfo.execute(query).get();
         Gson g = new Gson();
+        Log.d("QUERY",query);
         Map map = g.fromJson(query,Map.class);
-        return Integer.parseInt((String) map.get("data"));
+        Log.d("COUNT API",map.toString());
+        return ((Double) map.get("data")).intValue();
     }
 }
 
