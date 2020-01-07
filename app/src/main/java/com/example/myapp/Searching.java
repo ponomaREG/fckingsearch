@@ -32,7 +32,6 @@ public class Searching extends AppCompatActivity implements Result.OnFragmentInt
     ArrayList<SubjectInfo> arr3;
     ListView listview;
     Button btn_back;
-    DBHelper dbhelp;
     String input;
     Cursor cursor;
     ThreadDownload thd;

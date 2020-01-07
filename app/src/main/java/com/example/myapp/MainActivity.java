@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<String> arr = new ArrayList<>();
     final String TABLE_NAME="cards_students";
 //    private SQLiteDatabase db;
-//    private DBHelper DBHelp;
     Button button;
     TextView tvw;
     EditText input;
@@ -32,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         input = findViewById(R.id.input_FIO);
         tvw = findViewById(R.id.get_test);
         button.setOnClickListener(this);
-//        DBHelp = new DBHelper(getBaseContext());
-//        DBHelp.copyDataBase();
 
     }
     @Override
