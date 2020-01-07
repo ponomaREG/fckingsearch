@@ -21,6 +21,9 @@ import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
 
 public class Json {
+
+    private final static String SEARCH_API = "http://178.62.250.191:8000/api/get?q=%s&count=20&page%d";
+    private final static String SEARCH_API_COUNT = "http://178.62.250.191:8000/api/get/count?q=%s";
     private final static String SEARCH_USERS = "https://api.vk.com/method/users.search?access_token=394a2675e294ec4b83bc1b5d49607af45c6bd4d5aa8e3f55857baf40f579d2a82687ba542bf20125b51f9&v=5.1&q=%s%%20%s&age_from=%s&fields=photo_id&age_to=%s";
     private final static String SEARCH_PHOTOS = "https://api.vk.com/method/photos.get?access_token=394a2675e294ec4b83bc1b5d49607af45c6bd4d5aa8e3f55857baf40f579d2a82687ba542bf20125b51f9&v=5.1&photo_ids=%s&album_id=profile&owner_id=%s\n";
     private int count;
@@ -34,7 +37,7 @@ public class Json {
 
         s = String.format(SEARCH_USERS,last_name,first_name,age_from,age_to);
         if(city>0) s += String.format("&city=%s",city);
-        SearchInfoInVk search = new SearchInfoInVk();
+        SearchInfo search = new SearchInfo();
         s = search.execute(s).get();
         Log.d("s",s);
         g = new Gson();
@@ -50,7 +53,7 @@ public class Json {
             if(count>1000){
                 count=1000;
             }
-            search = new SearchInfoInVk();
+            search = new SearchInfo();
             s = String.format(SEARCH_USERS+"&count=%s",last_name,first_name,age_from,age_to,count);
             s = search.execute(s).get();
             map = g.fromJson(s,Map.class);
@@ -68,7 +71,7 @@ public class Json {
         Log.d("PHOTO_IDS",photo_ids);
         Log.d("OWNER_ID",owner_id);
         s = String.format(SEARCH_PHOTOS,photo_ids,owner_id);
-        SearchInfoInVk search = new SearchInfoInVk();
+        SearchInfo search = new SearchInfo();
         s = search.execute(s).get();
         g = new Gson();
         map = g.fromJson(s,Map.class);
@@ -100,9 +103,28 @@ public class Json {
 
     public Json() throws IOException {
     }
+
+    public ArrayList jsonify(String q,int page) throws ExecutionException, InterruptedException {
+        SearchInfo searchInfo = new SearchInfo();
+        String query = String.format(SEARCH_API,q,page);
+        query = searchInfo.execute(query).get();
+        Gson g = new Gson();
+        Map map = g.fromJson(query,Map.class);
+        ArrayList arr = (ArrayList) map.get("data");
+        return arr;
+    }
+
+    public int jsonify(String q) throws ExecutionException, InterruptedException {
+        SearchInfo searchInfo = new SearchInfo();
+        String query = String.format(SEARCH_API_COUNT,q);
+        query = searchInfo.execute(query).get();
+        Gson g = new Gson();
+        Map map = g.fromJson(query,Map.class);
+        return Integer.parseInt((String) map.get("data"));
+    }
 }
 
-class SearchInfoInVk extends AsyncTask<String,Void,String>{
+class SearchInfo extends AsyncTask<String,Void,String>{
     String s=null;
     @Override
     protected String doInBackground(String... strings) {
