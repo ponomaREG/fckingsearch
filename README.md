@@ -15,3 +15,6 @@ This guy does not suspect that his data is already with us
 
 
 ![image_3](https://github.com/ponomaREG/fuckingsearch/blob/version_3(api)/8r9BIE46eaY.jpg)
+
+
+I'm just a beginner...
