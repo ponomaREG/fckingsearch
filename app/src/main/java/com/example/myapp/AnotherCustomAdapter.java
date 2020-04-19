@@ -61,12 +61,12 @@ public class AnotherCustomAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return arr.size();
+        return 1;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return arr.isEmpty();
     }
     @Override
     public long getItemId(int i) {

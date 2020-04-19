@@ -5,4 +5,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="deeper_radio_city">Только Санкт-Петербург</string>
     <string name="deeper_radio_age">Возрастной диапазон</string>
+
+    <string name="mainDescription">Если вводите ФИО, то вносить данные в формате Фамилия Имя Отчество</string>
+    <string name="mainHint">Жмышенко Валерий</string>
+    <string name="mainSearch">Поиск</string>
+
 </resources>

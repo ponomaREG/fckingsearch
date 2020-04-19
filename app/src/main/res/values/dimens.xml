@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="mainTextSizeInput">35sp</dimen>
+    <dimen name="mainTextSizeDesc">20sp</dimen>
+    <dimen name="mainTextSizeSearch">40sp</dimen>
+
+
+
+</resources>

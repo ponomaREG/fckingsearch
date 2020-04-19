@@ -98,12 +98,12 @@ class CustomAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return arrayList.size();
+        return 1;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return arrayList.isEmpty();
     }
 
     private String[] getInfo(int position){
