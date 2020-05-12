@@ -19,7 +19,7 @@ import java.util.List;
 
 public class searching_view extends AppCompatActivity implements Interfaces.View {
 
-
+    //TODO: Сделать прогресс-бар, оптимизацию и вк поиск, возмонжо общий класс
     private Interfaces.Presenter presenter;
 
 
