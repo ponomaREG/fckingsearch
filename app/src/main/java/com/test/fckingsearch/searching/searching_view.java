@@ -1,5 +1,6 @@
 package com.test.fckingsearch.searching;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,10 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.test.fckingsearch.R;
+import com.test.fckingsearch.objects.Person;
 import com.test.fckingsearch.searching.descriptionOfPerson.descriptionOfPerson_view;
+
+import java.util.List;
 
 public class searching_view extends AppCompatActivity implements Interfaces.View {
 
@@ -39,12 +44,38 @@ public class searching_view extends AppCompatActivity implements Interfaces.View
     }
 
     @Override
-    public void setAdapter(RV_peoples adapter) {
-        RecyclerView rv = findViewById(R.id.searching_rv);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+    public void setAdapter(final RV_peoples adapter) {
+        final RecyclerView rv = findViewById(R.id.searching_rv);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+        rv.setLayoutManager(layoutManager);
         DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
         rv.addItemDecoration(divider);
+
         rv.setAdapter(adapter);
+
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.d("find last",layoutManager.findLastVisibleItemPosition()+"");
+                if(layoutManager.findLastCompletelyVisibleItemPosition() == adapter.getItemCount()-1){
+                    Intent intent = getIntent();
+                    String query = intent.getStringExtra("fio");
+                    if(!presenter.addNewPersonsToAdapter(query)) rv.removeOnScrollListener(this);
+                }
+            }
+
+        });
+    }
+
+    @Override
+    public void addNewPersonsToAdapter(List<Person> new_persons) {
+        RecyclerView rv = findViewById(R.id.searching_rv);
+        RV_peoples adapter = (RV_peoples) rv.getAdapter();
+        assert adapter != null;
+        adapter.pushNewPeoples(new_persons);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.test.fckingsearch.searching;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,11 @@ public class RV_peoples extends RecyclerView.Adapter<RV_peoples.Holder>{
         });
 
         downloaderPhotoForAvatarOfPerson.setImageWithPicasso(current_person);
+    }
+
+    public void pushNewPeoples(List<Person> new_persons){
+        Log.d("PUSH","NEW PEOPLE");
+        persons.addAll(new_persons);
     }
 
     @Override

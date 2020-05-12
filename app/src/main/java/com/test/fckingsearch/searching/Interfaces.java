@@ -11,6 +11,7 @@ public interface Interfaces {
 
     interface View{
         void setAdapter(RV_peoples adapter);
+        void addNewPersonsToAdapter(List<Person> new_persons);
         void showBsvWithDescriptionOfPerson(descriptionOfPerson_view bsv);
         void showErrorNoInternet();
         void showErrorEmptyResult();
@@ -19,6 +20,7 @@ public interface Interfaces {
 
     interface Presenter{
         void getAdapter(Context context,String query);
+        boolean addNewPersonsToAdapter(String query);
         interface connectionBetweenRvAndView{
             void tellViewToOpenBsvWithDescriptionOfPerson(Person person);
         }

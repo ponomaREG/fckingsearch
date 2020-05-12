@@ -13,6 +13,8 @@ public class searching_presenter implements Interfaces.Presenter, Interfaces.Pre
     private Interfaces.View view;
     private Interfaces.Model model;
 
+    private int max_visible_page = 1;
+
     searching_presenter(Interfaces.View view){
         this.view = view;
         this.model = new searching_model();
@@ -23,7 +25,16 @@ public class searching_presenter implements Interfaces.Presenter, Interfaces.Pre
     public void getAdapter(Context context, String query) {
         List<Person> persons = model.getPersons(query,1);
         if(persons.size() == 0) view.showErrorEmptyResult();
-        view.setAdapter(new RV_peoples(LayoutInflater.from(context),model.getPersons(query,1),this));
+        view.setAdapter(new RV_peoples(LayoutInflater.from(context),model.getPersons(query,max_visible_page),this));
+    }
+
+    @Override
+    public boolean addNewPersonsToAdapter(String query) {
+        max_visible_page++;
+        List<Person> persons = model.getPersons(query,max_visible_page);
+        if(persons.size() == 0) return false;
+        view.addNewPersonsToAdapter(persons);
+        return true;
     }
 
 
