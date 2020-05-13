@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">fckingSearch</string>
+
+    <string name="main_title">Введите данные</string>
+    <string name="main_lastName">Фамилия:</string>
+    <string name="main_lastName_hint">Жмышенко</string>
+    <string name="main_firstName">Имя:</string>
+    <string name="main_firstName_hint">Валерий</string>
+    <string name="main_patronymic">Отчество:</string>
+    <string name="main_patronymic_hint">Альбертович</string>
+    <string name="main_desc">*Необязательно заполнять все поля</string>
+    <string name="main_button">Искать</string>
+    <string name="main_image_todo">Icon</string>
+    <string name="rv_item_avatar">Avatar</string>
+    <string name="descriptionOfPerson_avatar_todo">TODO</string>
+    <string name="descriptionOfPerson_lastName">ФИО:</string>
+    <string name="descriptionOfPerson_birthday">Дата рождения:</string>
+    <string name="descriptionOfPerson_email">Email:</string>
+    <string name="descriptionOfPerson_passport">Паспорт:</string>
+    <string name="descriptionOfPerson_dateEndAllow">Дата окончания бск:</string>
+    <string name="descriptionOfPerson_button_title">Поиск в ВК</string>
+    <string name="descriptionOfPerson_checkBox_city">Поиск только по Санкт-петербургу</string>
+    <string name="descriptionOfPerson_checkBox_diapasonAge">Диапазон возраста</string>
+    <string name="descriptionOfPerson_button_searchInVk">Найти в ВК</string>
+
+
 </resources>

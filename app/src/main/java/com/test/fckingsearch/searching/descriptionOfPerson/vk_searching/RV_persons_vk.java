@@ -1,6 +1,5 @@
 package com.test.fckingsearch.searching.descriptionOfPerson.vk_searching;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ public class RV_persons_vk extends RecyclerView.Adapter<RV_persons_vk.Holder>{
     private List<Person> persons;
     private LayoutInflater inflater;
     private Interfaces.Presenter.connectionBetweenRvAndView presenter_to_view;
-    PhotoDownloader photoDownloader = new PhotoDownloader();
+    private PhotoDownloader photoDownloader = new PhotoDownloader();
 
     RV_persons_vk(LayoutInflater inflater, List<Person> persons, Interfaces.Presenter.connectionBetweenRvAndView presenter_to_view){
         this.inflater = inflater;
@@ -62,7 +61,7 @@ public class RV_persons_vk extends RecyclerView.Adapter<RV_persons_vk.Holder>{
         private ImageView avatar;
         private TextView fio;
 
-        public Holder(@NonNull View itemView) {
+        Holder(@NonNull View itemView) {
             super(itemView);
 
             avatar = itemView.findViewById(R.id.rv_item_avatar);

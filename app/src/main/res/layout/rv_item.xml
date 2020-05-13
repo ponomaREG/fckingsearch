@@ -7,15 +7,16 @@
         android:id="@+id/rv_item_avatar"
         android:scaleType="fitXY"
         android:layout_centerVertical="true"
-        android:layout_width="120dp"
-        android:layout_height="120dp"/>
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:contentDescription="@string/rv_item_avatar" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_toEndOf="@id/rv_item_avatar"
         android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:padding="5dp"
-        android:layout_height="120dp">
+        android:layout_height="150dp">
     <TextView
         android:id="@+id/rv_item_fio"
         android:textAlignment="center"

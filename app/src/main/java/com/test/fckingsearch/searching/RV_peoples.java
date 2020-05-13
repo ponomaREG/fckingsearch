@@ -33,7 +33,7 @@ public class RV_peoples extends RecyclerView.Adapter<RV_peoples.Holder>{
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new Holder(inflater.inflate(R.layout.rv_item,parent,false));
+        return new Holder(inflater.inflate(R.layout.rv_item, parent, false));
     }
 
     @Override
@@ -54,7 +54,7 @@ public class RV_peoples extends RecyclerView.Adapter<RV_peoples.Holder>{
         downloaderPhotoForAvatarOfPerson.setImageWithPicasso(current_person);
     }
 
-    public void pushNewPeoples(List<Person> new_persons){
+    void pushNewPeoples(List<Person> new_persons){
         Log.d("PUSH","NEW PEOPLE");
         persons.addAll(new_persons);
     }
@@ -64,13 +64,13 @@ public class RV_peoples extends RecyclerView.Adapter<RV_peoples.Holder>{
         return persons.size();
     }
 
-    class Holder extends RecyclerView.ViewHolder{
+    static class Holder extends RecyclerView.ViewHolder{
 
         private ImageView avatar;
         private TextView fio;
         private TextView dateOfBirth;
 
-        public Holder(@NonNull View itemView) {
+        Holder(@NonNull View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.rv_item_avatar);
             fio = itemView.findViewById(R.id.rv_item_fio);

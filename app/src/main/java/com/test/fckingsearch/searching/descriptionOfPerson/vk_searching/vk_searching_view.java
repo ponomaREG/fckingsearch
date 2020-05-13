@@ -13,6 +13,8 @@ import android.util.Log;
 import com.test.fckingsearch.R;
 import com.test.fckingsearch.objects.Person;
 
+import java.util.Objects;
+
 public class vk_searching_view extends AppCompatActivity implements Interfaces.View{
 
     private Interfaces.Presenter presenter;
@@ -60,8 +62,9 @@ public class vk_searching_view extends AppCompatActivity implements Interfaces.V
         RecyclerView rv = findViewById(R.id.vk_searching_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
-        rv.setLayoutManager(layoutManager);
+        divider.setDrawable(Objects.requireNonNull(getDrawable(R.drawable.rv_divider)));
         rv.addItemDecoration(divider);
+        rv.setLayoutManager(layoutManager);
         rv.setAdapter(adapter);
     }
 

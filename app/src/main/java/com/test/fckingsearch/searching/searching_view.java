@@ -1,6 +1,7 @@
 package com.test.fckingsearch.searching;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.test.fckingsearch.R;
@@ -16,6 +19,7 @@ import com.test.fckingsearch.objects.Person;
 import com.test.fckingsearch.searching.descriptionOfPerson.descriptionOfPerson_view;
 
 import java.util.List;
+import java.util.Objects;
 
 public class searching_view extends AppCompatActivity implements Interfaces.View {
 
@@ -30,6 +34,7 @@ public class searching_view extends AppCompatActivity implements Interfaces.View
 
         initPresenter();
         initAdapter();
+        prepareView();
     }
 
     private void initPresenter(){
@@ -43,6 +48,24 @@ public class searching_view extends AppCompatActivity implements Interfaces.View
         presenter.getAdapter(this, query);
     }
 
+    private void prepareView(){
+        ActionBar actionBar = getSupportActionBar();
+
+        assert actionBar != null;
+        actionBar.setDisplayShowTitleEnabled(false);
+        ImageView image_logo_in_actionbar = new ImageView(actionBar.getThemedContext());
+        image_logo_in_actionbar.setScaleType(ImageView.ScaleType.FIT_XY);
+        ActionBar.LayoutParams lp = new ActionBar.LayoutParams(
+                120,
+                120,
+                Gravity.CENTER
+        );
+        image_logo_in_actionbar.setLayoutParams(lp);
+        image_logo_in_actionbar.setImageDrawable(getDrawable(R.drawable.main_icon));
+        actionBar.setCustomView(image_logo_in_actionbar);
+        actionBar.setDisplayShowCustomEnabled(true);
+    }
+
     @Override
     public void setAdapter(final RV_peoples adapter) {
         final RecyclerView rv = findViewById(R.id.searching_rv);
@@ -50,6 +73,7 @@ public class searching_view extends AppCompatActivity implements Interfaces.View
 
         rv.setLayoutManager(layoutManager);
         DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+        divider.setDrawable(Objects.requireNonNull(getDrawable(R.drawable.rv_divider)));
         rv.addItemDecoration(divider);
 
         rv.setAdapter(adapter);

@@ -15,6 +15,7 @@ public interface Interfaces {
         void OnCheckBoxCityClick();
         void OnCheckBoxAgeDiapasonClick();
     }
+
     interface Model{
 
     }

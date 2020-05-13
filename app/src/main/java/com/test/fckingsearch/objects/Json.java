@@ -16,7 +16,7 @@ import org.apache.commons.io.IOUtils;
 public class Json {
 
     private final static String SEARCH_API = "http://161.35.108.15:8000/api/get?q=%s&count=20&page=%s";
-    private final static String SEARCH_API_COUNT = "http://161.35.108.15:8000/api/get/count?q=%s";
+//    private final static String SEARCH_API_COUNT = "http://161.35.108.15:8000/api/get/count?q=%s";
     private final static String SEARCH_USERS = "https://api.vk.com/method/users.search?access_token=394a2675e294ec4b83bc1b5d49607af45c6bd4d5aa8e3f55857baf40f579d2a82687ba542bf20125b51f9&v=5.1&q=%s%%20%s&age_from=%s&fields=photo_id&age_to=%s";
     private final static String SEARCH_PHOTOS = "https://api.vk.com/method/photos.get?access_token=394a2675e294ec4b83bc1b5d49607af45c6bd4d5aa8e3f55857baf40f579d2a82687ba542bf20125b51f9&v=5.1&photo_ids=%s&album_id=profile&owner_id=%s\n";
 
@@ -32,7 +32,7 @@ public class Json {
 
     public Map jsonifyVK(Person person, int age_from , int age_to, int city){
         GetDataFromBackground executeQuery = new GetDataFromBackground();
-        String s = null;
+        String s;
         try {
             s = SEARCH_USERS +String.format("&count=%s",100);
             if (city > 0) s = s +  String.format("&city=%s",city);
@@ -49,7 +49,7 @@ public class Json {
 
     public Map jsonifyVkPhoto(int id,int photo_id){
         GetDataFromBackground executeQuery = new GetDataFromBackground();
-        String s = null;
+        String s;
         try {
             s = executeQuery.execute(String.format(SEARCH_PHOTOS, photo_id,id)).get();
             Gson gson = new Gson();

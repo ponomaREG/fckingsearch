@@ -1,7 +1,6 @@
 package com.test.fckingsearch.searching.descriptionOfPerson;
 
 
-import android.util.Log;
 
 public class descriptionOfPerson_presenter implements Interfaces.Presenter {
 

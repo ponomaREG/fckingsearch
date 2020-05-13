@@ -4,6 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main">
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:layout_margin="15dp"
+            android:src="@drawable/main_icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="@string/main_image_todo" />
 
         <LinearLayout
             android:id="@+id/main_searchContainer"
@@ -14,29 +21,95 @@
             <TextView
                 android:textAlignment="center"
                 android:layout_width="wrap_content"
+                android:textColor="@android:color/black"
                 android:layout_height="wrap_content"
-                android:text="Введите фио"
+                android:layout_gravity="center"
+                android:text="@string/main_title"
+                android:layout_margin="10dp"
                 android:textSize="31sp"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:text="@string/main_lastName"
+                        android:textSize="25sp"/>
                 <EditText
+                    android:id="@+id/main_searchContainer_inputLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
                     android:inputType="text"
-                    android:id="@+id/main_searchContainer_inputFIO"
-                    android:hint="Фамилия Имя"
+                    android:hint="@string/main_lastName_hint"
                     android:textSize="25sp"
-                    android:importantForAutofill="no">
-                </EditText>
+                    android:importantForAutofill="no"/>
+                </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:text="@string/main_firstName"
+                    android:textSize="25sp"/>
+                <EditText
+                    android:id="@+id/main_searchContainer_inputFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:inputType="text"
+                    android:hint="@string/main_firstName_hint"
+                    android:textSize="25sp"
+                    android:importantForAutofill="no"/>
+            </LinearLayout>
+
+            <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="@string/main_patronymic"
+                android:textSize="25sp"/>
+            <EditText
+                android:id="@+id/main_searchContainer_inputPatronymic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:inputType="text"
+                android:hint="@string/main_patronymic_hint"
+                android:textSize="25sp"
+                android:importantForAutofill="no"/>
+        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:layout_margin="5dp"
+                android:text="@string/main_desc"/>
+            <Button
+                android:id="@+id/main_buttonCommit"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/button_default_selector"
+                android:layout_gravity="center"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="@string/main_button"
+                android:textSize="21sp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/main_buttonCommit"
-            android:layout_below="@id/main_searchContainer"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="Искать"
-            android:textSize="21sp" />
+
 
 </RelativeLayout>

@@ -167,7 +167,7 @@ public class descriptionOfPerson_view extends BottomSheetDialogFragment implemen
     public void inverseVisibilityOfAgeDiapasonSeekBar() {
         RangeSeekBar seekBar = Objects.requireNonNull(getView()).findViewById(R.id.descriptionOfPerson_searchVK_seekBarWithAgeDiapason);
         int visibility = seekBar.getVisibility();
-        if(visibility == View.VISIBLE) seekBar.setVisibility(View.INVISIBLE);
+        if(visibility == View.VISIBLE) seekBar.setVisibility(View.GONE);
         else seekBar.setVisibility(View.VISIBLE);
     }
 

@@ -21,9 +21,6 @@ public interface Interfaces {
             void tellViewToStartNextActivity(String vk_id);
         }
 
-        interface connectionBetweenRvAndModel{
-
-        }
     }
 
     interface Model{

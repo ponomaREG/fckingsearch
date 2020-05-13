@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 public class Person {
     //TODO:URL VK USAGE
     private String last_name,first_name,patronymic, passport, dateOfBirth, email, fio, link_image, dateEndAllow;
-    private int position, id;
+    private int id;
     private ImageView imageViewForAvatar;
     private String url_vk;
 
@@ -33,10 +33,6 @@ public class Person {
         this.id = id;
     }
 
-    public Person setPosition(int position) {
-        this.position = position;
-        return this;
-    }
 
     public Person setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
@@ -105,11 +101,11 @@ public class Person {
         return email;
     }
 
-    public String getFirst_name() {
+    String getFirst_name() {
         return first_name;
     }
 
-    public String getLast_name() {
+    String getLast_name() {
         return last_name;
     }
 
@@ -117,19 +113,16 @@ public class Person {
         return passport;
     }
 
-    public String getPatronymic() {
+    private String getPatronymic() {
         return patronymic;
     }
 
-    public int getPosition() {
-        return position;
-    }
 
     public String getLink_image() {
         return link_image;
     }
 
-    public ImageView getImageViewForAvatar() {
+    ImageView getImageViewForAvatar() {
         return imageViewForAvatar;
     }
 
