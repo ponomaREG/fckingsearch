@@ -1,12 +1,18 @@
 package com.test.fckingsearch.objects;
 
+import android.util.Log;
 import android.widget.ImageView;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Person {
 
     private String last_name,first_name,patronymic, passport, dateOfBirth, email, fio, link_image;
-    private int position;
+    private int position, id;
     private ImageView imageViewForAvatar;
+    private String url_vk;
 
     public Person setLink_image(String link_image) {
         this.link_image = link_image;
@@ -16,6 +22,10 @@ public class Person {
     public Person setFio(String fio) {
         this.fio = fio;
         return this;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Person setPosition(int position) {
@@ -54,14 +64,28 @@ public class Person {
     }
 
     public Person buildFio(){
-        String formatter = "%s %s %s";
-        this.fio = String.format(formatter,this.getLast_name(),this.getFirst_name(),this.getPatronymic());
+
+        String formatter = "%s %s";
+        this.fio = String.format(formatter,this.getLast_name(),this.getFirst_name());
+        if(getPatronymic() != null) this.fio = String.format(getFio() + " %s",getPatronymic());
+        return this;
+    }
+
+    public Person breakFio(){
+        String[] array_fio = getFio().split(" ");
+        setLast_name(array_fio[0]);
+        setFirst_name(array_fio[1]);
+        setPatronymic(array_fio[2]);
         return this;
     }
 
     public Person setImageViewForAvatar(ImageView imageViewForAvatar) {
         this.imageViewForAvatar = imageViewForAvatar;
         return this;
+    }
+
+    public String getUrl_vk() {
+        return url_vk;
     }
 
     public String getFio() {
@@ -104,4 +128,24 @@ public class Person {
         return imageViewForAvatar;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public Person buildID(){
+        this.url_vk = String.format("https://vk.com/id%s",getId());
+        return this;
+    }
+
+    public static int getCurrentAgeFromBirthDayAndCurrentTime(int year, int month,int day){
+        Calendar birthDay = new GregorianCalendar(year, month-1, day);
+        Calendar today = new GregorianCalendar();
+        today.setTime(new Date());
+        Log.d("BETWEEN YEAR",today.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR)+" ");
+        Log.d("year",year+"");
+        Log.d("month",month+"");
+        Log.d("day",day+"");
+        return today.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
+
+    }
 }

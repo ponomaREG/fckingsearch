@@ -13,8 +13,17 @@ public class descriptionOfPerson_presenter implements Interfaces.Presenter {
 
     @Override
     public void OnButtonSearchInVkClick() {
-        Log.d("MAX",view.getMaxSelectedRangeValue()+"");
-        Log.d("MIN",view.getMinSelectedRangeValue()+"");
+        int city = 0;
+        int age_from = 0;
+        int age_to = 0;
+
+        if(view.isCityCheckBoxChecked()) city = 2;
+        if(view.isRangeCheckBoxChecked()){
+            age_from = view.getMinSelectedRangeValue();
+            age_to = view.getMaxSelectedRangeValue();
+        }
+
+        view.startNextActivity(city,age_from,age_to);
     }
 
     @Override
@@ -26,4 +35,5 @@ public class descriptionOfPerson_presenter implements Interfaces.Presenter {
     public void OnCheckBoxAgeDiapasonClick() {
         view.inverseVisibilityOfAgeDiapasonSeekBar();
     }
+
 }

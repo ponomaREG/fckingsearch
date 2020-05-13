@@ -1,6 +1,8 @@
 package com.test.fckingsearch.searching.descriptionOfPerson;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.test.fckingsearch.R;
 import com.test.fckingsearch.objects.Person;
 import com.test.fckingsearch.objects.PhotoDownloader;
+import com.test.fckingsearch.searching.descriptionOfPerson.vk_searching.vk_searching_view;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
@@ -67,6 +70,8 @@ public class descriptionOfPerson_view extends BottomSheetDialogFragment implemen
         String passport = args.getString("passport");
         String birthday = args.getString("birthday");
         String link_image = args.getString("link_image");
+        assert link_image != null;
+        Log.d("LINK IMAGE",link_image);
         String email = args.getString("email");
 
         View view = inflater.inflate(R.layout.searching_description_of_person,container,false);
@@ -159,5 +164,19 @@ public class descriptionOfPerson_view extends BottomSheetDialogFragment implemen
         int visibility = seekBar.getVisibility();
         if(visibility == View.VISIBLE) seekBar.setVisibility(View.INVISIBLE);
         else seekBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void startNextActivity(int city, int age_from , int age_to) {
+        Bundle args = getArguments();
+        assert args != null;
+        args.putInt("city",city);
+        args.putInt("age_from",age_from);
+        args.putInt("age_to",age_to);
+
+        Intent intent_next_activity = new Intent(getContext(), vk_searching_view.class);
+        intent_next_activity.putExtras(args);
+
+        startActivity(intent_next_activity);
     }
 }

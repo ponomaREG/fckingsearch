@@ -8,6 +8,7 @@ public interface Interfaces {
         int getMaxSelectedRangeValue();
         int getMinSelectedRangeValue();
         void inverseVisibilityOfAgeDiapasonSeekBar();
+        void startNextActivity(int city, int age_from , int age_next);
     }
     interface Presenter{
         void OnButtonSearchInVkClick();

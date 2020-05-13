@@ -1,6 +1,7 @@
 package com.test.fckingsearch.objects;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +27,37 @@ public class Json {
         String s = executeQuery.execute(String.format(SEARCH_API,query,page)).get();
         Gson g = new Gson();
         return g.fromJson(s,Map.class);
+    }
+
+
+    public Map jsonifyVK(Person person, int age_from , int age_to, int city){
+        GetDataFromBackground executeQuery = new GetDataFromBackground();
+        String s = null;
+        try {
+            s = SEARCH_USERS +String.format("&count=%s",100);
+            if (city > 0) s = s +  String.format("&city=%s",city);
+            Log.d("QUERY",s);
+            s = executeQuery.execute(String.format(s, person.getLast_name(),person.getFirst_name(), age_from, age_to)).get();
+            Gson gson = new Gson();
+            Log.d("S",s);
+            return gson.fromJson(s,Map.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Map jsonifyVkPhoto(int id,int photo_id){
+        GetDataFromBackground executeQuery = new GetDataFromBackground();
+        String s = null;
+        try {
+            s = executeQuery.execute(String.format(SEARCH_PHOTOS, photo_id,id)).get();
+            Gson gson = new Gson();
+            return gson.fromJson(s,Map.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
