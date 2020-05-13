@@ -41,12 +41,14 @@ public class descriptionOfPerson_view extends BottomSheetDialogFragment implemen
         String birthday = person.getDateOfBirth();
         String link_image = person.getLink_image();
         String email = person.getEmail();
+        String dateEndAllow = person.getDateEndAllow();
 
         args.putString("fio",fio);
         args.putString("passport",passport);
         args.putString("birthday",birthday);
         args.putString("link_image",link_image);
         args.putString("email",email);
+        args.putString("dateEndAllow",dateEndAllow);
 
         fragment.setArguments(args);
         return fragment;
@@ -70,6 +72,7 @@ public class descriptionOfPerson_view extends BottomSheetDialogFragment implemen
         String passport = args.getString("passport");
         String birthday = args.getString("birthday");
         String link_image = args.getString("link_image");
+        String dateEndAllow = args.getString("dateEndAllow");
         assert link_image != null;
         Log.d("LINK IMAGE",link_image);
         String email = args.getString("email");
@@ -80,12 +83,14 @@ public class descriptionOfPerson_view extends BottomSheetDialogFragment implemen
         TextView passport_v = view.findViewById(R.id.descriptionOfPerson_container_passport_v);
         TextView email_v = view.findViewById(R.id.descriptionOfPerson_container_email_v);
         TextView birthday_v = view.findViewById(R.id.descriptionOfPerson_container_birthday_v);
+        TextView dateEbdAllow_v = view.findViewById(R.id.descriptionOfPerson_container_dateEndAllow_v);
         ImageView imageView_avatar = view.findViewById(R.id.descriptionOfPerson_avatar);
 
         fio_v.setText(fio);
         passport_v.setText(passport);
         email_v.setText(email);
         birthday_v.setText(birthday);
+        dateEbdAllow_v.setText(dateEndAllow);
 
         downloader.setImageWithPicasso(link_image,imageView_avatar);
         return view;

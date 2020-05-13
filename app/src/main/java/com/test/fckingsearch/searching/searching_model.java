@@ -35,12 +35,14 @@ public class searching_model implements Interfaces.Model{
             String email = (String) person_map.get("email");
             String passport = (String) person_map.get("psp");
             String link_photo = (String) person_map.get("photo");
+            String dateEndAllow = (String) person_map.get("dateendallow");
 
             new_person.setFio(fio)
                     .setEmail(email)
                     .setDateOfBirth(birthday)
                     .setLink_image(link_photo)
-                    .setPassport(passport);
+                    .setPassport(passport)
+                    .setDateEndAllow(dateEndAllow);
 
             persons.add(new_person);
         }

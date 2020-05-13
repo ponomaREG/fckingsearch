@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:rsb="http://schemas.android.com/tools"
-    android:padding="5dp">
+    xmlns:rsb="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/descriptionOfPerson_avatar"
@@ -106,8 +105,32 @@
             android:textColor="@android:color/black"
             android:textAlignment="center" />
     </LinearLayout>
-    <RelativeLayout
+
+    <LinearLayout
+        android:id="@+id/descriptionOfPerson_container_dateEndAllow"
         android:layout_below="@id/descriptionOfPerson_container_passport"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Дата окончания бск:"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"/>
+        <TextView
+            android:id="@+id/descriptionOfPerson_container_dateEndAllow_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:textSize="19sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/descriptionOfPerson_container_dateEndAllow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -173,7 +196,6 @@
     <Button
         android:id="@+id/descriptionOfPerson_buttonFindInVk"
         android:layout_below="@id/descriptionOfPerson_searchVK_seekBarWithAgeDiapason"
-        android:layout_marginTop="30dp"
         android:textColor="@android:color/black"
         android:layout_centerHorizontal="true"
         android:textSize="25sp"

@@ -8,8 +8,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class Person {
-
-    private String last_name,first_name,patronymic, passport, dateOfBirth, email, fio, link_image;
+    //TODO:URL VK USAGE
+    private String last_name,first_name,patronymic, passport, dateOfBirth, email, fio, link_image, dateEndAllow;
     private int position, id;
     private ImageView imageViewForAvatar;
     private String url_vk;
@@ -21,6 +21,11 @@ public class Person {
 
     public Person setFio(String fio) {
         this.fio = fio;
+        return this;
+    }
+
+    public Person setDateEndAllow(String dateEndAllow) {
+        this.dateEndAllow = dateEndAllow;
         return this;
     }
 
@@ -130,6 +135,10 @@ public class Person {
 
     public int getId() {
         return id;
+    }
+
+    public String getDateEndAllow() {
+        return dateEndAllow;
     }
 
     public Person buildID(){
