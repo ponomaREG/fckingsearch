@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,9 +17,15 @@ import com.test.fckingsearch.R;
 import com.test.fckingsearch.objects.Person;
 import com.test.fckingsearch.objects.PhotoDownloader;
 
-public class descriptionOfPerson_view extends BottomSheetDialogFragment {
+import org.florescu.android.rangeseekbar.RangeSeekBar;
+
+import java.util.Objects;
+
+public class descriptionOfPerson_view extends BottomSheetDialogFragment implements Interfaces.View{
 
     public static String TAG = "DESCRIPTION OF PERSON";
+
+    private Interfaces.Presenter presenter;
 
     public static descriptionOfPerson_view newInstance(Person person) {
 
@@ -45,6 +53,7 @@ public class descriptionOfPerson_view extends BottomSheetDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initPresenter();
     }
 
     @Nullable
@@ -80,5 +89,75 @@ public class descriptionOfPerson_view extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        initOclToCheckBoxes();
+        initOclToButtonSearchInVk();
+    }
+
+
+    private void initPresenter(){
+        this.presenter = new descriptionOfPerson_presenter(this);
+    }
+
+    private void initOclToCheckBoxes(){
+        CheckBox checkBox_city = Objects.requireNonNull(getView()).findViewById(R.id.descriptionOfPerson_searchVK_containerCity_checkBox);
+        CheckBox checkBox_ageDiapason = Objects.requireNonNull(getView()).findViewById(R.id.descriptionOfPerson_searchVK_containerAgeDiapason_checkBox);
+
+        View.OnClickListener ocl = new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if(v.getId() == R.id.descriptionOfPerson_searchVK_containerCity_checkBox) presenter.OnCheckBoxCityClick();
+                else presenter.OnCheckBoxAgeDiapasonClick();
+            }
+        };
+
+        checkBox_city.setOnClickListener(ocl);
+        checkBox_ageDiapason.setOnClickListener(ocl);
+    }
+
+    private void initOclToButtonSearchInVk(){
+        Button buttonSearchInVk = Objects.requireNonNull(getView()).findViewById(R.id.descriptionOfPerson_buttonFindInVk);
+
+        View.OnClickListener ocl = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.OnButtonSearchInVkClick();
+            }
+        };
+
+        buttonSearchInVk.setOnClickListener(ocl);
+    }
+
+    @Override
+    public boolean isCityCheckBoxChecked() {
+        CheckBox checkBox_city = Objects.requireNonNull(getView()).findViewById(R.id.descriptionOfPerson_searchVK_containerCity_checkBox);
+        return checkBox_city.isChecked();
+    }
+
+    @Override
+    public boolean isRangeCheckBoxChecked() {
+        CheckBox checkBox_ageDiapason = Objects.requireNonNull(getView()).findViewById(R.id.descriptionOfPerson_searchVK_containerAgeDiapason_checkBox);
+        return checkBox_ageDiapason.isChecked();
+    }
+
+    @Override
+    public int getMaxSelectedRangeValue() {
+        RangeSeekBar seekBar = Objects.requireNonNull(getView()).findViewById(R.id.descriptionOfPerson_searchVK_seekBarWithAgeDiapason);
+        return seekBar.getSelectedMaxValue().intValue();
+    }
+
+    @Override
+    public int getMinSelectedRangeValue() {
+        RangeSeekBar seekBar = Objects.requireNonNull(getView()).findViewById(R.id.descriptionOfPerson_searchVK_seekBarWithAgeDiapason);
+        return seekBar.getSelectedMinValue().intValue();
+    }
+
+    @Override
+    public void inverseVisibilityOfAgeDiapasonSeekBar() {
+        RangeSeekBar seekBar = Objects.requireNonNull(getView()).findViewById(R.id.descriptionOfPerson_searchVK_seekBarWithAgeDiapason);
+        int visibility = seekBar.getVisibility();
+        if(visibility == View.VISIBLE) seekBar.setVisibility(View.INVISIBLE);
+        else seekBar.setVisibility(View.VISIBLE);
     }
 }

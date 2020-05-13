@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rsb="http://schemas.android.com/tools"
     android:padding="5dp">
 
     <ImageView
@@ -103,16 +106,80 @@
             android:textColor="@android:color/black"
             android:textAlignment="center" />
     </LinearLayout>
+    <RelativeLayout
+        android:layout_below="@id/descriptionOfPerson_container_passport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/descriptionOfPerson_searchVK_title"
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Поиск в ВК"
+            android:textSize="25sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"/>
+
+        <LinearLayout
+            android:id="@+id/descriptionOfPerson_searchVK_containerCity"
+            android:orientation="horizontal"
+            android:layout_below="@id/descriptionOfPerson_searchVK_title"
+            android:layout_margin="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:text="Поиск только по Санкт-петербургу"/>
+            <CheckBox
+                android:id="@+id/descriptionOfPerson_searchVK_containerCity_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/descriptionOfPerson_searchVK_containerAgeDiapason"
+            android:orientation="horizontal"
+            android:layout_below="@id/descriptionOfPerson_searchVK_containerCity"
+            android:layout_margin="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:text="Диапазон возраста"/>
+            <CheckBox
+                android:id="@+id/descriptionOfPerson_searchVK_containerAgeDiapason_checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <org.florescu.android.rangeseekbar.RangeSeekBar
+            android:id="@+id/descriptionOfPerson_searchVK_seekBarWithAgeDiapason"
+            android:layout_below="@id/descriptionOfPerson_searchVK_containerAgeDiapason"
+            android:visibility="invisible"
+            app:valuesAboveThumbs="true"
+            app:textAboveThumbsColor="@android:color/black"
+            rsb:absoluteMaxValue="100"
+            rsb:absoluteMinValue="10"
+            rsb:step = "1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/descriptionOfPerson_buttonFindInVk"
-        android:layout_margin="25dp"
-        android:layout_below="@id/descriptionOfPerson_container_passport"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/descriptionOfPerson_searchVK_seekBarWithAgeDiapason"
+        android:layout_marginTop="30dp"
         android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
         android:textSize="25sp"
         android:textAllCaps="false"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Найти в ВК"/>
+    </RelativeLayout>
 </RelativeLayout>
