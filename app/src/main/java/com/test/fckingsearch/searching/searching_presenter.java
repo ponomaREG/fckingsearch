@@ -11,7 +11,6 @@ import com.test.fckingsearch.searching.descriptionOfPerson.descriptionOfPerson_v
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class searching_presenter implements Interfaces.Presenter, Interfaces.Presenter.connectionBetweenRvAndView {
 
@@ -22,7 +21,7 @@ public class searching_presenter implements Interfaces.Presenter, Interfaces.Pre
 
     searching_presenter(Interfaces.View view){
         this.view = view;
-        this.model = new searching_model(this);
+        this.model = new searching_model();
     }
 
         //TODO: Обработка ошибок , связь между моделью и представлением

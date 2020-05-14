@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.test.fckingsearch.R;
 import com.test.fckingsearch.objects.Person;
 import com.test.fckingsearch.searching.descriptionOfPerson.descriptionOfPerson_view;
-import com.test.fckingsearch.searching.descriptionOfPerson.vk_searching.RV_persons_vk;
 
 import java.util.List;
 import java.util.Objects;
@@ -79,7 +78,7 @@ public class searching_view extends AppCompatActivity implements Interfaces.View
         divider.setDrawable(Objects.requireNonNull(getDrawable(R.drawable.rv_divider)));
         rv.addItemDecoration(divider);
         rv.setAdapter(adapter);
-        if(isRecyclerScrollable(rv,layoutManager)) {
+        if(isRecyclerScrollable(rv)) {
             addOnScrollListenerOnRv();
         }
 
@@ -163,17 +162,11 @@ public class searching_view extends AppCompatActivity implements Interfaces.View
         ProgressBar progressBar = findViewById(R.id.searching_progressBar);
         progressBar.setVisibility(View.VISIBLE);
     }
-
-    private boolean isRecyclerScrollable(RecyclerView rv,LinearLayoutManager layoutManager) {
+//TODO:FIX THIS
+    private boolean isRecyclerScrollable(RecyclerView rv) {
         RecyclerView.Adapter adapter = rv.getAdapter();
         assert adapter != null;
         Log.d("ADAPTER COUNT", adapter.getItemCount()+"");
-        if(adapter.getItemCount()<20) return false;
-        else return true;
-//        if (rv.getLayoutManager() == null || adapter == null) return false;
-//        Log.d("ADAPTER COUNT", adapter.getItemCount()+"");
-//        Log.d("last",layoutManager.findLastCompletelyVisibleItemPosition()+"");
-//        if(layoutManager.findLastCompletelyVisibleItemPosition() == -1) return false;
-//        return layoutManager.findLastCompletelyVisibleItemPosition() < adapter.getItemCount() - 1;
+        return adapter.getItemCount() >= 20;
     }
 }

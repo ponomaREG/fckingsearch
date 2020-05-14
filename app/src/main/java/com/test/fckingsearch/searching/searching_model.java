@@ -13,11 +13,7 @@ import java.util.Map;
 public class searching_model implements Interfaces.Model{
 
     private Json json = new Json();
-    private Interfaces.Presenter presenter;
 
-    searching_model(Interfaces.Presenter presenter){
-        this.presenter = presenter;
-    }
 
     @Override
     public List<Person> getPersons(String query, int page) {
