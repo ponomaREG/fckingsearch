@@ -31,6 +31,9 @@ public class vk_searching_model implements Interfaces.Model{
             age_from--;
         }
         Map raw_result = json.jsonifyVK(person_target, age_from, age_to, city);
+        if(raw_result == null){
+            return null;
+        }
         raw_result = (Map) raw_result.get("response");
 
         assert raw_result != null;

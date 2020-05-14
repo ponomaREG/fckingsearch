@@ -5,6 +5,9 @@ import android.view.LayoutInflater;
 
 import com.test.fckingsearch.objects.Person;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class vk_searching_presenter implements Interfaces.Presenter, Interfaces.Presenter.connectionBetweenRvAndView {
 
     private Interfaces.View view;
@@ -17,7 +20,14 @@ public class vk_searching_presenter implements Interfaces.Presenter, Interfaces.
 
     @Override
     public void initAdapter(Context context, Person person, int city, int age_from, int age_to) {
-        view.setAdapter(new RV_persons_vk(LayoutInflater.from(context),model.getPersons(person,city,age_from,age_to),this));
+        List<Person> persons = model.getPersons(person,city,age_from,age_to);
+        if(persons == null){
+            persons = new ArrayList<>();
+            view.showErrorCommon();
+        }else{
+            if(persons.size() == 0) view.showErrorEmptyResult();
+        }
+        view.setAdapter(new RV_persons_vk(LayoutInflater.from(context),persons,this));
     }
 
     @Override

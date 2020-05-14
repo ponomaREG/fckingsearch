@@ -11,6 +11,8 @@ public interface Interfaces {
     interface View{
         void setAdapter(RV_persons_vk adapter);
         void startNextVkActivity(String vk_id);
+        void showErrorCommon();
+        void showErrorEmptyResult();
     }
 
     interface Presenter{

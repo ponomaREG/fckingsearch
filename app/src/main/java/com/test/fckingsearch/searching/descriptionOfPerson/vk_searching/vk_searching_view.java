@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.test.fckingsearch.R;
 import com.test.fckingsearch.objects.Person;
@@ -72,5 +73,15 @@ public class vk_searching_view extends AppCompatActivity implements Interfaces.V
     public void startNextVkActivity(String vk_id) {
         Intent intent_vk = new Intent(Intent.ACTION_VIEW, Uri.parse(vk_id));
         startActivity(intent_vk);
+    }
+
+    @Override
+    public void showErrorCommon() {
+        Toast.makeText(this, "Невозможно подключиться к серверу", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showErrorEmptyResult() {
+        Toast.makeText(this, "Как видите, ничего не найдено", Toast.LENGTH_SHORT).show();
     }
 }
