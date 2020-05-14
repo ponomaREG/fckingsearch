@@ -3,6 +3,8 @@
     package="com.test.fckingsearch">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".searching.descriptionOfPerson.vk_searching.vk_searching_view"></activity>
+        <activity android:name=".searching.descriptionOfPerson.vk_searching.vk_searching_view" />
         <activity android:name=".searching.searching_view" />
         <activity android:name=".main">
             <intent-filter>

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.test.fckingsearch.objects.Json;
 import com.test.fckingsearch.objects.Person;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,11 @@ import java.util.Map;
 public class searching_model implements Interfaces.Model{
 
     private Json json = new Json();
+    private Interfaces.Presenter presenter;
+
+    searching_model(Interfaces.Presenter presenter){
+        this.presenter = presenter;
+    }
 
     @Override
     public List<Person> getPersons(String query, int page) {
@@ -19,9 +25,10 @@ public class searching_model implements Interfaces.Model{
         Map raw_result;
         try {
             raw_result = json.jsonify(query,page);
+            Log.d("RAW_RESULT",raw_result+"");
+            if(raw_result == null) return null;
         } catch (Exception e) {
-            e.printStackTrace();
-            return persons;
+            return null;
         }
         Log.d("MAP",raw_result.toString());
         ArrayList array_result = (ArrayList) raw_result.get("data");

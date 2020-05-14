@@ -11,19 +11,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.test.fckingsearch.R;
 import com.test.fckingsearch.objects.Person;
 import com.test.fckingsearch.searching.descriptionOfPerson.descriptionOfPerson_view;
+import com.test.fckingsearch.searching.descriptionOfPerson.vk_searching.RV_persons_vk;
 
 import java.util.List;
 import java.util.Objects;
 
 public class searching_view extends AppCompatActivity implements Interfaces.View {
 
-    //TODO: Сделать прогресс-бар, оптимизацию и вк поиск, возмонжо общий класс
+    //TODO: Сделать прогресс-бар, оптимизацию, возмонжо общий класс
     private Interfaces.Presenter presenter;
 
 
@@ -68,29 +71,18 @@ public class searching_view extends AppCompatActivity implements Interfaces.View
 
     @Override
     public void setAdapter(final RV_peoples adapter) {
-        final RecyclerView rv = findViewById(R.id.searching_rv);
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView rv = findViewById(R.id.searching_rv);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         rv.setLayoutManager(layoutManager);
         DividerItemDecoration divider = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
         divider.setDrawable(Objects.requireNonNull(getDrawable(R.drawable.rv_divider)));
         rv.addItemDecoration(divider);
-
         rv.setAdapter(adapter);
+        if(isRecyclerScrollable(rv,layoutManager)) {
+            addOnScrollListenerOnRv();
+        }
 
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                Log.d("find last",layoutManager.findLastVisibleItemPosition()+"");
-                if(layoutManager.findLastCompletelyVisibleItemPosition() == adapter.getItemCount()-1){
-                    Intent intent = getIntent();
-                    String query = intent.getStringExtra("fio");
-                    if(!presenter.addNewPersonsToAdapter(query)) rv.removeOnScrollListener(this);
-                }
-            }
-
-        });
     }
 
     @Override
@@ -122,5 +114,66 @@ public class searching_view extends AppCompatActivity implements Interfaces.View
     @Override
     public void showErrorUnexpected() {
         Toast.makeText(this, "Непредвиденная ошибка", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showErrorCommon() {
+        Toast.makeText(this, "Невозможно подключиться к серверу", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMessageItsAll() {
+        Toast.makeText(this, "На этом все", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void clearOnScrollListenerOnRv() {
+        RecyclerView rv = findViewById(R.id.searching_rv);
+        rv.clearOnScrollListeners();
+    }
+
+    @Override
+    public void addOnScrollListenerOnRv() {
+        final RecyclerView rv = findViewById(R.id.searching_rv);
+        final LinearLayoutManager layoutManager = (LinearLayoutManager) rv.getLayoutManager();
+
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (Objects.requireNonNull(layoutManager).findLastCompletelyVisibleItemPosition() == Objects.requireNonNull(rv.getAdapter()).getItemCount() - 1) {
+                    Intent intent = getIntent();
+                    String query = intent.getStringExtra("fio");
+                    presenter.addNewPersonsToAdapter(query);
+                    addProgressBar();
+                    clearOnScrollListenerOnRv();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void hideProgressBar(){
+        ProgressBar progressBar = findViewById(R.id.searching_progressBar);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void addProgressBar() {
+        ProgressBar progressBar = findViewById(R.id.searching_progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private boolean isRecyclerScrollable(RecyclerView rv,LinearLayoutManager layoutManager) {
+        RecyclerView.Adapter adapter = rv.getAdapter();
+        assert adapter != null;
+        Log.d("ADAPTER COUNT", adapter.getItemCount()+"");
+        if(adapter.getItemCount()<20) return false;
+        else return true;
+//        if (rv.getLayoutManager() == null || adapter == null) return false;
+//        Log.d("ADAPTER COUNT", adapter.getItemCount()+"");
+//        Log.d("last",layoutManager.findLastCompletelyVisibleItemPosition()+"");
+//        if(layoutManager.findLastCompletelyVisibleItemPosition() == -1) return false;
+//        return layoutManager.findLastCompletelyVisibleItemPosition() < adapter.getItemCount() - 1;
     }
 }

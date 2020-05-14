@@ -16,6 +16,12 @@ public interface Interfaces {
         void showErrorNoInternet();
         void showErrorEmptyResult();
         void showErrorUnexpected();
+        void showErrorCommon();
+        void showMessageItsAll();
+        void clearOnScrollListenerOnRv();
+        void addOnScrollListenerOnRv();
+        void hideProgressBar();
+        void addProgressBar();
     }
 
     interface Presenter{

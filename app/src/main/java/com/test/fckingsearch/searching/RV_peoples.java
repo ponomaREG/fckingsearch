@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -64,12 +65,12 @@ public class RV_peoples extends RecyclerView.Adapter<RV_peoples.Holder>{
         return persons.size();
     }
 
+
     static class Holder extends RecyclerView.ViewHolder{
 
         private ImageView avatar;
         private TextView fio;
         private TextView dateOfBirth;
-
         Holder(@NonNull View itemView) {
             super(itemView);
             avatar = itemView.findViewById(R.id.rv_item_avatar);

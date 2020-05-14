@@ -2,7 +2,9 @@ package com.test.fckingsearch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -78,4 +80,5 @@ public class main extends AppCompatActivity{
         intent.putExtra("fio", fio);
         startActivity(intent);
     }
+
 }
