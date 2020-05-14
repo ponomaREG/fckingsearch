@@ -3,7 +3,6 @@ package com.test.fckingsearch.searching;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.test.fckingsearch.objects.Person;
@@ -24,11 +23,9 @@ public class searching_presenter implements Interfaces.Presenter, Interfaces.Pre
         this.model = new searching_model();
     }
 
-        //TODO: Обработка ошибок , связь между моделью и представлением
     @Override
     public void getAdapter(Context context, String query) {
         List<Person> persons = model.getPersons(query,1);
-        Log.d("PERSONS",persons+"");
         if(persons != null){
             if(persons.size() == 0) view.showMessageItsAll();
         }else {

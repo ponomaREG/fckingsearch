@@ -1,10 +1,8 @@
 package com.test.fckingsearch.objects;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -37,10 +35,8 @@ public class Json {
         try {
             s = SEARCH_USERS +String.format("&count=%s",100);
             if (city > 0) s = s +  String.format("&city=%s",city);
-            Log.d("QUERY",s);
             s = executeQuery.execute(String.format(s, person.getLast_name(),person.getFirst_name(), age_from, age_to)).get();
             Gson gson = new Gson();
-            Log.d("S",s);
             return gson.fromJson(s,Map.class);
         }catch (Exception e){
             e.printStackTrace();

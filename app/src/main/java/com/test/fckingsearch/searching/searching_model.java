@@ -1,11 +1,8 @@
 package com.test.fckingsearch.searching;
 
-import android.util.Log;
-
 import com.test.fckingsearch.objects.Json;
 import com.test.fckingsearch.objects.Person;
 
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +18,10 @@ public class searching_model implements Interfaces.Model{
         Map raw_result;
         try {
             raw_result = json.jsonify(query,page);
-            Log.d("RAW_RESULT",raw_result+"");
             if(raw_result == null) return null;
         } catch (Exception e) {
             return null;
         }
-        Log.d("MAP",raw_result.toString());
         ArrayList array_result = (ArrayList) raw_result.get("data");
         assert array_result != null;
         for(Object person:array_result){

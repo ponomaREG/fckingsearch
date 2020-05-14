@@ -1,6 +1,5 @@
 package com.test.fckingsearch.searching.descriptionOfPerson.vk_searching;
 
-import android.util.Log;
 
 import com.test.fckingsearch.objects.Json;
 import com.test.fckingsearch.objects.Person;
@@ -65,7 +64,6 @@ public class vk_searching_model implements Interfaces.Model{
         int id_photo = Integer.parseInt(split_s[1]);
 
         Map raw_result = json.jsonifyVkPhoto(id_user,id_photo);
-        Log.d("RAW RESULT",raw_result.toString());
         raw_result = (Map) raw_result.get("response");
 
         if(raw_result == null) return null;
@@ -83,7 +81,6 @@ public class vk_searching_model implements Interfaces.Model{
             }
         }
         if(needed_key == null) return null;
-        Log.d("STRING URL OF IMAGE",(String) Objects.requireNonNull(map_photo.get(needed_key)));
         return (String) map_photo.get(needed_key);
 
 

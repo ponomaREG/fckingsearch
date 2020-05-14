@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,7 +24,7 @@ import java.util.Objects;
 
 public class searching_view extends AppCompatActivity implements Interfaces.View {
 
-    //TODO: Сделать прогресс-бар, оптимизацию, возмонжо общий класс
+    //TODO: Сделать оптимизацию, возмонжо общий класс
     private Interfaces.Presenter presenter;
 
 
@@ -166,7 +165,6 @@ public class searching_view extends AppCompatActivity implements Interfaces.View
     private boolean isRecyclerScrollable(RecyclerView rv) {
         RecyclerView.Adapter adapter = rv.getAdapter();
         assert adapter != null;
-        Log.d("ADAPTER COUNT", adapter.getItemCount()+"");
         return adapter.getItemCount() >= 20;
     }
 }

@@ -2,7 +2,6 @@ package com.test.fckingsearch.searching.descriptionOfPerson;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +73,6 @@ public class descriptionOfPerson_view extends BottomSheetDialogFragment implemen
         String link_image = args.getString("link_image");
         String dateEndAllow = args.getString("dateEndAllow");
         assert link_image != null;
-        Log.d("LINK IMAGE",link_image);
         String email = args.getString("email");
 
         View view = inflater.inflate(R.layout.searching_description_of_person,container,false);

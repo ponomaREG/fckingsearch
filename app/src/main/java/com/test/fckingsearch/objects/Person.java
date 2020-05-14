@@ -1,6 +1,5 @@
 package com.test.fckingsearch.objects;
 
-import android.util.Log;
 import android.widget.ImageView;
 
 import java.util.Calendar;
@@ -143,10 +142,6 @@ public class Person {
         Calendar birthDay = new GregorianCalendar(year, month-1, day);
         Calendar today = new GregorianCalendar();
         today.setTime(new Date());
-        Log.d("BETWEEN YEAR",today.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR)+" ");
-        Log.d("year",year+"");
-        Log.d("month",month+"");
-        Log.d("day",day+"");
         return today.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
 
     }
