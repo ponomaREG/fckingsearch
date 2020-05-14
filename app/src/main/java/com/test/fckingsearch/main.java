@@ -50,7 +50,7 @@ public class main extends AppCompatActivity{
     }
 
     private void showErrorEmptyEditTexts(){
-        Toast.makeText(this, "В случае всех пустых полей будут выводится все записи\n Подождите...", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "В случае всех пустых полей будут выводится все записи\nПодождите...", Toast.LENGTH_LONG).show();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
